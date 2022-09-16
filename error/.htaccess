@@ -1,0 +1,3 @@
+ErrorDocument 404 /ddf9795/235/error/error.html
+
+DirectoryIndex noterror.html

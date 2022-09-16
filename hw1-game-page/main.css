@@ -1,0 +1,77 @@
+@import url("index.html");
+
+html 
+{
+    font-size: 18px;
+    font-family: sans-serif;
+    background-color: rgb(44, 44, 44);
+    color: white;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+
+#logo 
+{
+    max-width: 75vw !important;
+    max-height: 25vh !important;
+    width: auto !important;
+    height: auto !important;
+    border: 0px !important;
+}
+
+h1
+{
+    color: red;
+    font-family: monospace;
+    font-size: 72px;
+}
+
+h2
+{
+    color: red;
+    font-family: monospace;
+}
+
+a
+{
+    color:gold;
+}
+
+a:visited
+{
+    color: darkgoldenrod
+}
+
+.sting
+{
+    color: red;
+    font-size: 24px;
+    font-family: monospace;
+}
+
+blockquote
+{
+    font-size: 20px;
+    font-family: serif;
+    border: 2px solid red;
+    box-sizing: border-box;
+    padding: 25px;
+    background-color: rgb(33, 33, 33);
+}
+
+img
+{
+    border: 2px solid red;
+    box-sizing: border-box;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+}
+
+li 
+{
+    list-style-type: '» ';
+}
