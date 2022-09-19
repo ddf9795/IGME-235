@@ -1,0 +1,79 @@
+/* Do everything in this file */
+
+body {
+    margin: 2rem;
+}
+
+header, main, footer {
+    float: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90vw;
+}
+
+h2 {
+    border-bottom: thin solid red;
+}
+
+div.tet, h2, h3 {
+    clear: both;
+}
+
+div.aliases {
+    text-align: left;
+    margin: 1em;
+}
+
+figure {
+    float: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 650px;
+}
+
+figure > img {
+    width: 100%;
+}
+
+.tet {
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 1;
+    width: 850px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.tet img {
+    float: left;
+    /* border: 1px solid blue; */
+    width: 60%;
+    height: 75%;
+    margin: 1em;
+}
+
+.tet.square {
+    width: 40% !important;
+}
+
+.tet.long {
+    width: 80% !important;
+}
+
+img {
+    float: left;
+    /* border: 1px solid blue; */
+    width: 60%;
+    height: 60%;
+    margin: 1em;
+}
+
+#tetlist {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+span {
+    display: block;
+    margin: 1em;
+}
