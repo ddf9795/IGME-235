@@ -1,0 +1,161 @@
+/* It starts completely empty. I wish you luck. */
+
+#wrapper {
+    display: grid;
+    grid-template-columns: 500px 1fr;
+    grid-template-rows: 345px auto auto auto;
+    grid-template-areas:
+    "logo" 
+    "menu" 
+    "intro" 
+    "playground" 
+    "footer";
+}
+
+@media screen and (min-width: 850px) {
+    #wrapper {
+        grid-template-areas:
+            "logo       intro"
+            "menu       menu"
+            "playground playground"
+            "footer     footer";
+    }
+}
+
+body {
+    margin: 1rem;
+}
+
+h1.game { grid-area: logo; }
+ul.menu { grid-area: menu; }
+#introduction { grid-area: intro; }
+#tetgrid { grid-area: playground; }
+footer { grid-area: footer; }
+
+h1.game {
+    width: 500px;
+    height: 345px;
+    background: url(../images/tetris-logo.png) no-repeat;
+    text-indent: -9999px;
+}
+
+#introduction {
+    margin: 2rem;
+}
+
+ul.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.menu a {
+    display: block;
+    background: gray;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    transition: transform 0.1s ease-in, background-color 0.5s linear;;
+}
+
+.menu li {
+    width: 25%;
+}
+
+@media (max-width:550px) {
+    .menu li {
+        width: 100%;
+    }
+}
+
+.menu a:hover {
+	background: red;
+	color: yellow;
+    transform:scale(1.1);
+}
+
+ul.menu ul li {
+    width:100%;
+}
+ul.menu ul {
+    display:none;
+}
+ul.menu li:hover ul {
+    display:flex;
+}
+
+.menu .submenu li>a {
+    background:red;
+    color:yellow;
+}
+.menu .submenu>a:after {
+    content: "+";
+    padding-left:5px;
+}
+
+#tetgrid {
+    display: grid;
+    grid-template-columns: repeat(6, 100px);
+    grid-template-rows: repeat(6, 100px);
+}
+
+#o {
+    grid-column: 1/span 2;
+    grid-row: 1/span 2;
+}
+
+#z {
+    grid-column: 2/span 2;
+    grid-row: 2/span 3;
+}
+
+#z img {
+    transform-origin: 0 0;
+    transform: translateX(205px) rotate(90deg);
+}
+
+#l {
+    grid-column: 1/span 2;
+    grid-row: 3/span 3;
+}
+
+#l img {
+    transform-origin: 0 0;
+    transform: translateY(305px) rotate(-90deg);
+}
+
+#j {
+    grid-column: 3/span 3;
+    grid-row: 4;
+}
+
+#j img {
+    transform-origin: 0 0;
+    transform: translateX(305px) translateY(205px) rotate(180deg);
+}
+
+#t {
+    grid-column: 5/span 2;
+    grid-row: 3/span 3;
+}
+
+#t img {
+    transform-origin: 0 0;
+    transform: translateX(205px) rotate(90deg);
+}
+
+#s {
+    grid-column: 4/span 3;
+    grid-row: 2/span 2;
+}
+
+img {
+    transition-property: transform;
+    transition-duration: 2s;
+}
+
+img:hover {
+    transform: rotate(-90deg);
+}
