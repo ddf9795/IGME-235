@@ -1,0 +1,126 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: justify;
+    line-height: 150%;
+}
+
+html, body {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+header {
+    justify-content: center;
+    align-items: center;
+    grid-area: header;
+}
+
+header img {
+    width: 95%;
+}
+
+article, section {
+    padding: 1rem;
+}
+
+p, h1, h2 {
+    font-family: 'Actor', sans-serif;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2rem;
+    color: rgb(44, 62, 112);
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+#wrapper {
+    display: grid;
+    height: 100vh;
+    grid-template-rows: 1fr 5fr 5fr;
+    grid-template-columns: 50% 50%;
+    grid-template-areas: "header header"
+                         "content1 content2"
+                         "contactinfo content3";
+}
+
+#content1 {
+    grid-area: content1;
+}
+
+#content2 {
+    grid-area: content2;
+}
+
+#content3 {
+    grid-area: content3;
+    background-image: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)), url(../media/images/rainbow-landscape.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#contactinfo {
+    grid-area: contactinfo;
+}
+
+#car-1 img {
+    shape-outside: url(../media/images/car-1.png);
+    float: right;
+    position: relative;
+    transform: translateX(45px);
+    width: 15vw;
+    min-width: 150px;
+}
+
+#car-2 img {
+    shape-outside: url(../media/images/car-2.png);
+    float:right;
+    position: relative;
+    transform: translateX(45px);
+    width: 15vw;
+    min-width: 150px;
+}
+
+#car-3 img {
+    position: relative;
+    transform: translateX(120px);
+    width: 18vw;
+    min-width: 150px;
+}
+
+#contactinfo h3 {
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-bottom: -5px !important;
+    margin-left: -45px !important;
+    color: rgb(152, 143, 121);
+}
+
+#contactblock h2 {
+    text-align: right;
+    color: white !important;
+    margin-top: -20px !important;
+    margin-right: -24px !important;
+}
+
+#contactblock {
+    border: 1px solid rgb(152, 143, 121); 
+    background-color: rgb(152, 143, 121);
+    padding: 1rem;
+}
+
+#contactblock p {
+    color: rgb(44, 62, 112);
+}
