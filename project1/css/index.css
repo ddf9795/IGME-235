@@ -1,0 +1,108 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: justify;
+    line-height: 150%;
+}
+
+html, body {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+header {
+    justify-content: center;
+    align-items: center;
+    grid-area: header;
+}
+
+header img {
+    width: 95%;
+}
+
+article, section {
+    padding: 1rem;
+}
+
+p, h1, h2 {
+    font-family: 'Actor', sans-serif;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2rem;
+    color: rgb(38, 110, 66);
+}
+
+h3 {
+    font-size: 1.25rem;
+}
+
+#wrapper {
+    display: grid;
+    height: 100vh;
+    grid-template-rows: 1fr 5fr 5fr;
+    grid-template-columns: 50% 50%;
+    grid-template-areas: "header header"
+                         "content1 content2"
+                         "contactinfo content3";
+}
+
+#content1 {
+    grid-area: content1;
+}
+
+#content2 {
+    grid-area: content2;
+}
+
+#content1-container {
+    background-image: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.25)), url(../media/images/portfolio/terrariamodweapons.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#content3-container {
+    background-image: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)), url(../media/images/portfolio/berrysmod.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: auto;
+    height: 40vh;
+}
+
+#content3 {
+    grid-area: content3;
+}
+
+#contactinfo {
+    grid-area: contactinfo;
+}
+
+#contactinfo h3 {
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-bottom: -5px !important;
+    margin-left: -45px !important;
+    color: rgb(152, 143, 121);
+}
+
+#contactblock h2 {
+    text-align: right;
+    color: white !important;
+    margin-top: -20px !important;
+    margin-right: -24px !important;
+}
+
+#contactblock {
+    background-image: linear-gradient(rgba(255, 255, 255, 1), rgba(0, 255, 0, 0.5));
+    padding: 1rem;
+    height: 40vh;
+}
