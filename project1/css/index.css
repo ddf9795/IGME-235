@@ -14,6 +14,7 @@ html, body {
     margin-bottom: 2rem;
     margin-left: 5vw;
     margin-right: 5vw;
+    background-color: rgb(159,226,191);
 }
 
 header {
@@ -23,19 +24,45 @@ header {
 }
 
 header img {
-    width: 95%;
+    width: 15%;
+    justify-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    min-width: 100px;
+    border: 10px groove grey;
+    
 }
 
 article, section {
     padding: 1rem;
 }
 
-p, h1, h2 {
-    font-family: 'Actor', sans-serif;
+h1, h2, h3 {
+    font-family: 'Baloo Bhai 2', sans-serif;
+}
+
+p {
+    font-family: 'Harmattan', sans-serif;
+}
+
+a:link {
+    color: darkslateblue;
+}
+a:visited {
+    color: dimgrey;
+}
+a:hover, a:focus {
+    color: blue;
+}
+a:active {
+    color: gray;
 }
 
 h1 {
     font-size: 3rem;
+    text-align: center;
+    color:rgb(38, 110, 66);
 }
 
 h2 {
@@ -50,11 +77,22 @@ h3 {
 #wrapper {
     display: grid;
     height: 100vh;
-    grid-template-rows: 1fr 5fr 5fr;
-    grid-template-columns: 50% 50%;
-    grid-template-areas: "header header"
-                         "content1 content2"
-                         "contactinfo content3";
+    grid-template-rows: 1fr 10fr 10fr 10fr 10fr;
+    grid-template-areas: "header"
+                         "content1"
+                         "content2"
+                         "content3"
+                         "contactinfo";
+}
+
+@media screen and (min-width: 900px) {
+    #wrapper {
+        grid-template-rows: 1fr 5fr 5fr;
+        grid-template-columns: 50% 50%;
+        grid-template-areas: "header header"
+                             "content1 content2"
+                             "contactinfo content3";
+    }
 }
 
 #content1 {
@@ -66,13 +104,13 @@ h3 {
 }
 
 #content1-container {
-    background-image: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.25)), url(../media/images/portfolio/terrariamodweapons.png);
+    background-image: linear-gradient(rgba(159,226,191, 1), rgba(159, 226, 191, 0.75), rgba(159, 226, 191, 0.5),rgba(159, 226, 191, 0.25)), url(../media/images/portfolio/terrariamodweapons.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 #content3-container {
-    background-image: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)), url(../media/images/portfolio/berrysmod.png);
+    background-image: linear-gradient(rgba(159, 226, 191, 1), rgba(255, 255, 255, 0)), url(../media/images/portfolio/berrysmod.png);
     background-repeat: no-repeat;
     background-size: cover;
     width: auto;
@@ -88,7 +126,6 @@ h3 {
 }
 
 #contactinfo h3 {
-    font-family: 'Roboto Condensed', sans-serif;
     margin-bottom: -5px !important;
     margin-left: -45px !important;
     color: rgb(152, 143, 121);
@@ -102,7 +139,16 @@ h3 {
 }
 
 #contactblock {
-    background-image: linear-gradient(rgba(255, 255, 255, 1), rgba(0, 255, 0, 0.5));
+    background-image: linear-gradient(rgba(159, 226, 191, 1), rgba(72, 194, 123, 0.5));
     padding: 1rem;
     height: 40vh;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    background-color: rgba(255, 255, 255, 0);
+    border: 0px transparent;
+}
+.carousel-item img {
+    width: 100%;
+    height: auto;
 }
