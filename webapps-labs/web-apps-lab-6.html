@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Web Apps-4-HW</title>
+	<style>
+		body{border:1px solid gray;}
+	</style>
+</head>
+<body>
+<h1>My Favorites</h1>
+<h2>My Favorite Colors</h2>
+
+<ol id="colorsList">
+	
+</ol>
+
+<h2>My Favorite Foods</h2>
+
+<ol id="foodsList">
+	
+</ol>
+
+<h2>My Favorite Links</h2>
+
+<ol id="linksList">
+	
+</ol>
+
+<script>
+"use strict";
+let colors = ["green","red","blue","purple","silver"];
+let foods = ["mac n cheese","steak","lima beans","mint tea"]; // add some foods
+
+let ols = document.querySelectorAll("ol");
+
+for (let i = 0; i < colors.length; i++) {
+    let li = document.createElement("li");
+    li.innerHTML = colors[i];
+    ols[0].appendChild(li);
+}
+
+for (let i = 0; i < foods.length; i++) {
+    let li = document.createElement("li");
+    li.innerHTML = foods[i];
+    ols[1].appendChild(li);
+}
+
+// Optional - can you figure out how to pull both the key AND the value
+// from the `links` object literal?
+function getKeyByValue(object, value) {
+	return Object.keys(object).find(key => object[key] == value);
+}
+
+let links = {
+		"RIT": "http://www.rit.edu",
+		"RWAG" : "https://www.facebook.com/RWAGclub",
+		"New Media Club" : "http://newmediaclub.cias.rit.edu"
+	}
+
+for (const link in links) {
+	let li = document.createElement("li");
+	li.innerHTML = "<a href='" + links[link] + "'>" + getKeyByValue(links, links[link]) + "</a>";
+	ols[2].appendChild(li);
+}
+
+</script>
+</body>
+</html>
