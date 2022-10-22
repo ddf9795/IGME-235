@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+  <title>Image Gallery</title>
+   <style>
+   		body {
+		  font-family: "Helvetica","Arial",serif;
+		  color: #333;
+		  background-color: #fff;
+		  margin: 1em 10%;
+		}
+		
+		#main {
+			padding-top: 30px;
+			width: 400px;
+			margin: 0 auto;
+		}
+		
+   		span[data-image]{
+   			transition-property: opacity;
+   			transition-duration: 0.5s;
+   			color: #c60;
+		  	background-color: transparent;
+		  	font-weight: bold;
+		  	text-decoration: none;
+		  	cursor: pointer;
+   		}
+   		
+   		span[data-image]:hover{
+   			opacity: 0.5;
+   		}
+		
+		h1 {
+		  color: #333;
+		  background-color: transparent;
+		}
+		
+		ul {
+		  padding: 0;
+		}
+		
+		li {
+		  float: left;
+		  padding: 1em;
+		  list-style: none;
+		}
+		
+		img {
+		  display:block;
+		  clear: both;
+		  box-shadow: 7px 7px 5px #888;
+		  border:1px solid #aaa;
+		  transition-property: opacity;
+   		transition-duration: 0.5s;
+		}
+
+		footer{
+			font-size:70%;
+			color:#bbb;
+			text-align:center;
+		}
+   </style>
+  
+    </script>
+</head>
+<body>
+  <section id="main">
+      <h1>Snapshots</h1>
+      <ul>
+        <li><span data-image="cassie.jpg" title="My dog, Cassie">Cassie</span></li>
+        <li><span data-image="seal.jpg" title="A funny seal">Seal</span></li>
+        <li><span data-image="wolf.jpg" title="An elegant white wolf">Wolf</span></li>
+        <li><span data-image="eagle.jpg" title="A bald eagle in a snowy tundra">Eagle</span></li>
+      </ul>
+      <div id="imagewrapper">
+        <img id="placeholder" src="images/placeholder.gif" alt="my image gallery" />
+      </div>
+       <p id="description">Choose an image.</p>
+     <footer>
+        <p>For IGME-230 Web Site Design & Implementation</p>
+     </footer>
+    </section>
+     <script>
+	/*
+	The name of the image is stored in the data-image (custom data) attribute of each
+	span. In JavaScript we access these custom data properties using the .dataset 
+	property. We also covered this in web-apps-6.
+	*/
+
+	let placeholder = document.querySelector("#placeholder");
+	let span = document.querySelectorAll("span");
+	let description = document.querySelector("#description");
+
+	function changeImg(e) {
+		//Change the current displayed image and descriptionusing data stored in the target
+		placeholder.src = "images/" + e.target.dataset.image;
+		description.innerHTML = e.target.title;
+	}
+
+	//Set each list element to listen for click inputs
+	for (let i = 0; i < span.length; i++) {
+		span[i].addEventListener("click", changeImg);
+	}
+	</script>
+	   
+</body>
+</html>
