@@ -1,0 +1,60 @@
+html {
+    font-family: 'Comfortaa', sans-serif;
+    background-image: url(background.jpg);
+    background-color: rgb(162, 217, 236);
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-size: 1.5em;
+    margin: 2rem;
+}
+
+main {
+    display: block;
+    border: 3px outset rgba(211, 211, 211, 0.5);
+    background-color: rgba(211, 211, 211, 0.5);
+    padding: 1rem;
+}
+
+hr {
+    color: rgba(211, 211, 211, 0.5);
+    margin: 1rem -1rem !important;
+}
+
+h1 {
+    font-size: 2rem;
+    text-align: center;
+}
+
+#factPlaceholder {
+    font-size: 1.15rem;
+    text-align: center;
+}
+
+#name {
+    text-align: center;
+}
+
+#factButtonWrapper {
+    width: 50%;
+    text-align: center;
+    margin: auto !important;
+}
+
+#factButtonWrapper #factButton {
+    border: 2px outset magenta;
+    background-color: magenta;
+    color: white;
+    font-size: 1.25rem;
+    font-family: 'Comfortaa', sans-serif;
+    padding: 10px 5px;
+}
+
+#factButtonWrapper #factButton:hover {
+    border: 2px outset rgb(255, 100, 255);
+    background-color: rgb(255, 100, 255);
+}
+
+#factButtonWrapper #factButton:active {
+    border: 2px inset magenta;
+    background-color: rgb(170, 0, 170);
+}

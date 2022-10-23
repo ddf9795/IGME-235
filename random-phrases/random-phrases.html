@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Kirby Trivia Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="random-phrases.css">
+</head>
+<body>
+    <header>
+        <h1>Wanna hear some Kirby Trivia?</h1>
+    </header>
+
+    <main>
+        <p id="factPlaceholder"></p>
+        <div id="factButtonWrapper"><p><button id="factButton" type="button">Hit Me!</button></p></div>
+    </main>
+    <hr>
+    <footer>
+        <p id="name">Created by Dean Flint</p>
+    </footer>
+</body>
+<script>
+
+    let facts = [
+        "Kirby was originally created as a placeholder character to be replaced later, but the developers decided to keep him as the permanent character after growing attached to him during development.",
+        "The music of the Kirby series has historically <a href='https://www.youtube.com/watch?v=m-hNChQF0fk' target='_blank'>frequently used</a> the \"ARR1\" sample from the Fairlight CMI, to the point that it has been elevated to a semi-legendary meme status within the core fanbase.",
+        "In nearly every North American Kirby release, Kirby's expression on the box cover has been changed to make Kirby look angrier. <a href='https://assets.reedpopcdn.com/nintendo-says-it-makes-kirby-angrier-for-western-box-art-139877017726.jpg/BROK/resize/1200x1200%3E/format/jpg/quality/70/nintendo-says-it-makes-kirby-angrier-for-western-box-art-139877017726.jpg' target='_blank'>(Some examples)</a>",
+        "It is a common urban legend that during the development of Kirby's first game, \"Kirby\'s Dream Land,\" Shigeru Miyamoto wanted Kirby to be yellow, while Masahiro Sakurai wanted him to be pink. This is incorrect; Miyamoto was actually under the impression Kirby was yellow due to the Game Boy\'s monochrome sprites, and was pleasantly surprised when he was later on given his pink coloring.",
+        "It is a common practice for Nintendo's developers and designers to use Kirby as a metric of measurement, even outside of Kirby projects!",
+        "Kirby is very likely not the only one of his species; many other characters, friend and foe, are widely speculated to also be \"Kirbies\", such as Meta Knight, Galacta Knight, Morpho Knight, Zero and Zero-2, Void Termina, Prince Fluff, and the Batamon enemies from Kirby\'s Dream Land 3!",
+        "Kirby can be spotted in other Nintendo franchises! Most notably, Kirby-type enemies dubbed \"Anti-Kirbies\" appear in The Legend of Zelda: Link's Awakening, wherein he inhales Link and spits him back out to attack!",
+        "Some specific Kirby colors have canon names, such as yellow Kirby being named \"Keeby\"!",
+        "Kirby canonically has \"infinite power\" according to his own flavor text from Kirby: Planet Robobot. It is generally understood that he could do whatever he wanted, whenever he wanted, but he is simply too lazy to, and chooses to eat and sleep all day instead." 
+    ];
+    
+    let factPlaceholder = document.querySelector("p");
+    let factButton = document.querySelector("button");
+    
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
+    
+    function chooseFact() {
+        let factIndex = getRandomInt(facts.length);
+        factPlaceholder.innerHTML = facts[factIndex];
+    }
+    
+    factButton.addEventListener("click", chooseFact);
+    
+    chooseFact();
+    
+    </script>
+</html>
