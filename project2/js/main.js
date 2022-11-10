@@ -493,7 +493,7 @@ function loadMessage(string)
 {
     load.style.zIndex="1000";
     load.style.background="rgba(0.5,0.5,0.5,0.3)";
-    load.innerHTML = "<img src='../media/Ripple-1s-200px.gif' alt='Loading...'><p class='load'>" + string + "</p>";
+    load.innerHTML = "<img src='media/Ripple-1s-200px.gif' alt='Loading...'><p class='load'>" + string + "</p>";
 }
 
 function dataError(e)
