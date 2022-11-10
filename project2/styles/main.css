@@ -1,0 +1,101 @@
+#load {
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position:fixed;
+    text-align: center;
+    z-index: -1;
+}
+#load img {
+    margin: 10rem auto;
+}
+#load p {
+    margin: -10rem auto;
+    color: white;
+    font-size: 3rem;
+}
+
+#wrapper {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 10% 80% 10%;
+    grid-template-rows: 1vh auto auto auto;
+    grid-template-areas: "header header header"
+                         "form question-wrapper sidebar"
+                         "form question-wrapper sidebar"
+                         "footer footer footer";
+}
+
+#header {
+    grid-area: header;
+}
+
+#sidebar {
+    grid-area: sidebar;
+}
+
+aside {
+    top: 0;
+    bottom: 0;
+    width: auto;
+    position: sticky;
+    overflow-y: scroll;
+    border-style: none none none solid;
+    margin-left: -1rem;
+    padding-left: 1rem;
+}
+
+select, input {
+    width: 13vw;
+}
+
+#typeOption p {
+    text-align: center;
+}
+
+#form {
+    grid-area: form;
+    border-style: none solid none none;
+    margin-right: -6rem;
+    padding-right: -1rem;
+}
+
+#question-wrapper {
+    grid-area: question-wrapper;
+    width: 40%;
+    margin: 1rem auto;
+    display: flex;
+    flex-flow: column;
+}
+
+#counter {
+    text-align: center;
+}
+
+#question {
+    text-align: center;
+}
+
+#answers-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+    margin: 1rem auto;
+}
+
+p.answer {
+    display: block;
+    padding: 0.5rem 1rem;
+    margin: auto 3px;
+    border: 1px solid gray;
+    border-radius: 15%;
+}
+
+#footer {
+    grid-area: footer;
+}
+footer {
+    text-align: center;
+}
