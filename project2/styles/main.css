@@ -40,21 +40,23 @@ hr {
 
 a:link {
     color: white;
-    text-decoration: none;
+    text-decoration: gray underline dotted;
     font-weight: bold;
 
 }
 a:visited {
     color: white;
-    text-decoration: none;
+    text-decoration: gray underline dotted;    
     font-weight: bold;
 }
 a:hover, a:focus {
     color: lightgray;
+    text-decoration: darkcyan underline dotted;
     font-weight: bold;
 } 
 a:active {
     color: gray;
+    text-decoration: darkcyan underline botted;
     font-weight: bold;
 }
 
