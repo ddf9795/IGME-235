@@ -110,6 +110,10 @@ select, input {
 }
 
 #form {
+    top: 0;
+    bottom: 0;
+    width: auto;
+    position: sticky;
     grid-area: form;
     border-style: none solid none none;
     margin-right: -6rem;
