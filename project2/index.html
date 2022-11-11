@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TU Trivia Study Club</title>
-
+    <link rel="icon" href="media/favicon.ico">
     <link rel="stylesheet" type="text/css" href="styles/main.css">
 </head>
 <body>
     <div id="load"></div>
     <header id="header">
-        <h1>Tower Unite Trivia Study Club</h1>
+        <img src="media/logo.png" alt="Tower Unite"><h1>‎ ‎Trivia Study Club</h1>
     </header>
     <hr>
     <main>
@@ -27,7 +27,7 @@
 
                     <div id="amountOption">
                         <p>
-                            <input type="number" min="1" max="50" value="10" placeholder="Enter a number 1-50" id="amount"/> Number of Questions (1-50)
+                            <input type="number" min="1" max="50" value="10" placeholder="Enter a number 1-50" id="amount"> Number of Questions (1-50)
                         </p>
                     </div>
 
@@ -78,9 +78,9 @@
 
                     <div id="typeOption">
                         <p>Response Type</p>
-                        <p><input type="radio" name="responseType" id="responseType" value="multiple" class="type" /><br>Multiple Choice</p>
-                        <p><input type="radio" name="responseType" id="responseType" value="boolean" class="type" /><br>True/False</p>
-                        <p><input type="radio" name="responseType" id="responseType" value="any" class="type" /><br>Any Type</p>
+                        <p><input type="radio" name="responseType" value="multiple" class="type"><br>Multiple Choice</p>
+                        <p><input type="radio" name="responseType" value="boolean" class="type"><br>True/False</p>
+                        <p><input type="radio" name="responseType" value="any" class="type"><br>Any Type</p>
                     </div>
 
                 </div>
@@ -101,9 +101,8 @@
 
         </div>
     </main>
-
     <hr>
-
+    <br>
     <footer>
         <p>Copyright (c)2022 Dean Flint | Open Trivia DB owned and maintained by <a href="https://www.pixeltailgames.com">PIXELTAIL GAMES LLC</a> | Loading GIF courtesy of <a href="https://loading.io">Loading.io</a></p>
     </footer>
