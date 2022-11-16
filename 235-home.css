@@ -35,36 +35,37 @@ nav {
     top: 0px;
     background-color: silver;
     border: 6px outset silver;
+    padding: 0.5rem;
 }
 
-#home {
+/* #home {
     display: inline-block;
     width: 3vw;
     height: 7vh;
     background: url("images/leftieHYPERS.png") no-repeat;
     background-size: contain;
-}
+} */
 
-#home:hover {
+/* #home:hover {
     background: url("images/leftieMEGAHYPERS.png") no-repeat;
     background-size: contain;
-}
+} */
 
-#github {
+/* #github {
     display: inline-block;
     width: 3vw;
     height: 7vh;
     background: url(images/GitHub-Mark-120px-plus.png) no-repeat;
     background-size: contain;
-}
+} */
 
-#hw1 {
+/* #hw1 {
     display: inline-block;
     width: 3vw;
     height: 7vh;
     background: url(images/V1Head.webp) no-repeat;
     background-size: contain;
-}
+} */
 
 #introduction {
     color: slateblue;

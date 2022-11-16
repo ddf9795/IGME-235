@@ -26,11 +26,17 @@ let clear = document.querySelector("#clear");
 let reset = document.querySelector("#reset");
 
 let aside = document.querySelector("aside");
+
+let prev = document.querySelector("#prev");
+let next = document.querySelector("#next");
 let counter = document.querySelector("#counter");
+
 let question = document.querySelector("#question");
 let answers_wrapper = document.querySelector("#answers-wrapper");
 
 let load = document.querySelector("#load");
+
+let currentQuestion = 0;
 
 //Event subscribers so we can update preferences as they're changed
 amount.addEventListener("change", () => {
@@ -56,6 +62,9 @@ for (let i = 0; i < type.length; i++)
 submit.addEventListener("click", submitButtonClicked);
 clear.addEventListener("click", clearButtonClicked);
 reset.addEventListener("click", resetButtonClicked);
+
+prev.addEventListener("click", previousQuestion);
+next.addEventListener("click", nextQuestion);
 
 //If no options are already stored locally, generate some defaults
 if (!storedOptions)
@@ -106,12 +115,21 @@ else
     for (let i = 0; i < storedQuestions.questions.length; i++)
     {
         addToSidebar(storedQuestions, i);
+        if (storedQuestions.questions[i].correctAnswerChosen == true)
+        {
+            colorizeSidebarQuestionCorrect(i);
+        }
+        else if (storedQuestions.questions[i].correctAnswerChosen == false)
+        {
+            colorizeSidebarQuestionIncorrect(i);
+        }
+        else if (!storedQuestions.questions[i].answered) ;
     }
 
     //Display the question in the appropriate part of the website
-    displayQuestion(storedQuestions, 0);
-    displayAnswers(storedQuestions, 0);
-    displayCounter(storedQuestions, 0);
+    displayQuestion(storedQuestions, currentQuestion);
+    displayAnswers(storedQuestions, currentQuestion);
+    displayCounter(storedQuestions, currentQuestion);
 }
 
 //Match the options to their matching HTML elements
@@ -362,7 +380,7 @@ function resetSidebar()
 function addToSidebar(obj, index)
 {
     //Form a new HTML element
-    let newHTML = "";
+    let newHTML = "<div class='sidebarQuestion'>";
     newHTML += "<p>" + obj.questions[index].category + " - " + obj.questions[index].difficulty + "</p>";
     newHTML += "<h3><a href='#' class='sidebarQuestion' onclick='javascript:redirectToQuestion(" + index + ")'>" + obj.questions[index].question + "</a></h3>";
     if (obj.questions[index].type == "multiple")
@@ -371,10 +389,20 @@ function addToSidebar(obj, index)
     }
     else if (obj.questions[index].type == "boolean")
     {
-        newHTML += "<p>True/False</p><hr>";
+        newHTML += "<p>True/False</p><hr></div>";
     }
     //Append it as a child to the sidebar
     aside.innerHTML += newHTML;
+}
+function colorizeSidebarQuestionCorrect(question)
+{
+    let currentQuestionOnSidebar = aside.querySelectorAll("div.sidebarQuestion")
+    currentQuestionOnSidebar[question].style.backgroundColor = "rgba(0, 255, 0, 0.25)";
+}
+function colorizeSidebarQuestionIncorrect(question)
+{
+    let currentQuestionOnSidebar = aside.querySelectorAll("div.sidebarQuestion")
+    currentQuestionOnSidebar[question].style.backgroundColor = "rgba(255, 0, 0, 0.25)";
 }
 
 //Functions related to the counter display
@@ -419,55 +447,112 @@ function displayAnswers(obj, index)
         let newHTML = "";
         if (obj.questions[index].questionPool[i].correct)
         {
-            newHTML += "<p class='answer correct'><a href='#' onclick='javascript:correctAnswerClicked(" + index + "," + i + ")'>" + obj.questions[index].questionPool[i].answer + "</a></p>";
+            //newHTML += "<p class='answer correct'><a href='#' onclick='javascript:correctAnswerClicked(" + index + "," + i + ")'>" + obj.questions[index].questionPool[i].answer + "</a></p>";
+            newHTML += "<button class='answer correct' type='button' value='" + index + "'>" + obj.questions[index].questionPool[i].answer + "</button>";
         }
         else
         {
-            newHTML += "<p class='answer incorrect'><a href='#' onclick='javascript:incorrectAnswerClicked(" + index + "," + i + ")'>" + obj.questions[index].questionPool[i].answer + "</a></p>";
+            //newHTML += "<p class='answer incorrect'><a href='#' onclick='javascript:incorrectAnswerClicked(" + index + "," + i + ")'>" + obj.questions[index].questionPool[i].answer + "</a></p>";
+            newHTML += "<button class='answer incorrect' type='button' value='" + index + "'>" + obj.questions[index].questionPool[i].answer + "</button>";
         }
         answers_wrapper.innerHTML += newHTML;
     }
+
+    let answerButtons = answers_wrapper.querySelectorAll("button");
+    for (let i = 0; i < answerButtons.length; i++)
+    {
+        switch(i)
+        {
+            case 0:
+                answerButtons[i].classList.add("a");
+                break;
+            case 1:
+                answerButtons[i].classList.add("b");
+                break;
+            case 2:
+                answerButtons[i].classList.add("c");
+                break;
+            case 3:
+                answerButtons[i].classList.add("d");
+            default:
+                break;
+        }
+        if (answerButtons[i].classList.contains("correct"))
+        {
+            answerButtons[i].addEventListener("click", correctAnswerClicked)
+        }
+        else
+        {
+            answerButtons[i].addEventListener("click", incorrectAnswerClicked)
+        }
+    }
+
     if (obj.questions[index].answered === true)
     {
-        revealAnswers();
+        revealAnswers(index);
     }
 }
 
-function correctAnswerClicked(question, index)
+function correctAnswerClicked(e)
 {
+    let question = e.target.value;
     storedQuestions.questions[question].correctAnswerChosen = true;
     storedQuestions.questions[question].answered = true;
 
     localStorage.setItem(questionsKey, JSON.stringify(storedQuestions));
 
-    revealAnswers();
+    colorizeSidebarQuestionCorrect(question);
+
+    revealAnswers(question);
 
     
 }
-function incorrectAnswerClicked(question, index)
+function incorrectAnswerClicked(e)
 {
+    let question = e.target.value;
     storedQuestions.questions[question].correctAnswerChosen = false;
     storedQuestions.questions[question].answered = true;
 
     localStorage.setItem(questionsKey, JSON.stringify(storedQuestions));
 
-    revealAnswers();
+    colorizeSidebarQuestionCorrect(question);
+
+    revealAnswers(question);
 }
-function revealAnswers()
+function revealAnswers(question)
 {
-    let correctAnswers = document.querySelectorAll("p.correct");
+    let correctAnswers = document.querySelectorAll("button.correct");
     for (let i = 0; i < correctAnswers.length; i++)
     {
-        correctAnswers[i].style.backgroundColor = "green";
-        correctAnswers[i].querySelector("a").style.color = "white";
-        correctAnswers[i].onclick = "";
+        correctAnswers[i].style.backgroundColor = "lime";
+        correctAnswers[i].style.color = "black";
+        //correctAnswers[i].querySelector("a").style.color = "black";
+        //correctAnswers[i].onclick = "";
     }
-    let incorrectAnswers = document.querySelectorAll("p.incorrect");
+    let incorrectAnswers = document.querySelectorAll("button.incorrect");
     for (let i = 0; i < incorrectAnswers.length; i++)
     {
         incorrectAnswers[i].style.backgroundColor = "red";
-        incorrectAnswers[i].querySelector("a").style.color = "white";
-        incorrectAnswers[i].onclick = "";
+        incorrectAnswers[i].style.color = "white";
+        //incorrectAnswers[i].querySelector("a").style.color = "white";
+        //incorrectAnswers[i].onclick = "";
+    }
+    if (storedQuestions.questions[question].correctAnswerChosen)
+    {
+        colorizeSidebarQuestionCorrect(question);
+    }
+    else if (!storedQuestions.questions[question].correctAnswerChosen)
+    {
+        colorizeSidebarQuestionIncorrect(question);
+    }
+
+    for (let i = 0; i < correctAnswers.length; i++)
+    {
+        correctAnswers[i].removeEventListener("click", correctAnswerClicked);
+    }
+    for (let i = 0; i < incorrectAnswers.length; i++)
+    {
+        incorrectAnswers[i].removeEventListener("click", incorrectAnswerClicked);
     }
 }
 
@@ -480,6 +565,31 @@ function redirectToQuestion(index)
     displayAnswers(storedQuestions, index);
     resetCounter();
     displayCounter(storedQuestions, index);
+
+    currentQuestion = index;
+}
+
+function previousQuestion(e)
+{
+    if (currentQuestion === 0)
+    {
+        redirectToQuestion(storedQuestions.questions.length - 1);
+    }
+    else
+    {
+        redirectToQuestion(currentQuestion - 1);
+    }
+}
+function nextQuestion(e)
+{
+    if (currentQuestion === storedQuestions.questions.length - 1)
+    {
+        redirectToQuestion(0);
+    }
+    else
+    {
+        redirectToQuestion(currentQuestion + 1);
+    }
 }
 
 //Functions related to the loading display

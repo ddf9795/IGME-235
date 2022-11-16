@@ -63,13 +63,66 @@ a:active {
 #wrapper {
     display: grid;
     height: 100vh;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1vh auto auto;
+    grid-template-areas: "header header"
+                         "question-wrapper question-wrapper"
+                         "form sidebar";
+}
+
+aside {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#form {
+    grid-area: form;
+}
+
+footer {
+    border-style: solid none none none;
+    visibility: hidden;
+    display:block;
+    text-align: center;
+}
+
+@media screen and (min-width:960px) {
+    #wrapper {
+    
     grid-template-columns: 10% 80% 10%;
-    grid-template-rows: 1vh auto auto auto;
+    grid-template-rows: 1vh 89vh 1vh;
     grid-template-areas: "header header header"
                          "form question-wrapper sidebar"
-                         "form question-wrapper sidebar"
                          "footer footer footer";
+    }
+
+    aside {
+        top: 0;
+        bottom: 0;
+        width: auto;
+        /* position: sticky; */
+        overflow-y: scroll;
+        border-style: none none none solid;
+        margin-left: -1rem;
+        padding-left: 1rem;
+    }
+
+    #form {
+        top: 0;
+        bottom: 0;
+        width: auto;
+        /* position: sticky; */
+        grid-area: form;
+        border-style: none solid none none;
+        margin-right: -6rem;
+        /* padding-right: -1rem; */
+    }
+
+    footer {
+        visibility: visible;
+    }
 }
+
 
 #header {
     grid-area: header;
@@ -92,16 +145,7 @@ a:active {
     background: rgba(34, 34, 34, 0.7)
 }
 
-aside {
-    top: 0;
-    bottom: 0;
-    width: auto;
-    position: sticky;
-    overflow-y: scroll;
-    border-style: none none none solid;
-    margin-left: -1rem;
-    padding-left: 1rem;
-}
+
 
 select, input {
     width: 13vw;
@@ -111,16 +155,7 @@ select, input {
     text-align: center;
 }
 
-#form {
-    top: 0;
-    bottom: 0;
-    width: auto;
-    position: sticky;
-    grid-area: form;
-    border-style: none solid none none;
-    margin-right: -6rem;
-    /* padding-right: -1rem; */
-}
+
 
 #question-wrapper {
     grid-area: question-wrapper;
@@ -130,8 +165,18 @@ select, input {
     flex-flow: column;
 }
 
+#misc-wrapper {
+    height: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+}
+
 #counter {
     text-align: center;
+    margin-top: -10px;
 }
 
 #question {
@@ -154,9 +199,37 @@ p.answer {
     border-radius: 15%;
 }
 
+button, input, select {
+    margin: 0.25rem;;
+    background-color: #0E2A82;
+    color: white;
+    border: 1px solid gray;
+    border-radius: 15%;
+}
+
+#prev, #next {
+    font-size: larger;
+    margin: auto
+}
+
+button.a {
+    font-size: x-large;
+    background-color: blue;
+}
+button.b {
+    font-size: x-large;
+    background-color: red;
+}
+button.c {
+    font-size: x-large;
+    background-color: lime;
+    color: black;
+}
+button.d {
+    font-size: x-large;
+    background-color: magenta;
+}
+
 #footer {
     grid-area: footer;
-}
-footer {
-    text-align: center;
 }
