@@ -1,5 +1,10 @@
+body {
+    background-color: #eeeeee;
+}
+
 canvas {
     display: block;
-    width: 50%;
-    margin: auto;
+    width: auto;
+    margin: 2rem auto;
+    border: 3px dashed #777777
 }
