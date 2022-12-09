@@ -9,7 +9,12 @@ const app = new PIXI.Application({
 });
 gameContainer.appendChild(app.view);
 
-
+//A bit of code to prevent arrow key scrolling, because oh my god it just hit me how annoying it is once the page needs to scroll
+window.addEventListener("keydown", function(e) {
+    if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+        e.preventDefault();
+    }
+}, false);
 
 //constants
 const sceneWidth = app.view.width;
