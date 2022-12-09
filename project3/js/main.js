@@ -1,10 +1,15 @@
 "use strict";
+//Append additional HTML, for things such as control explanations and credits
+let gameContainer = document.querySelector("#game");
+
 const app = new PIXI.Application({
     width: 1200,
     height: 600,
-    backgroundColor: 0xEEEEEE,
+    backgroundColor: 0x7777777,
 });
-document.body.appendChild(app.view);
+gameContainer.appendChild(app.view);
+
+
 
 //constants
 const sceneWidth = app.view.width;
@@ -28,7 +33,7 @@ let stage;
 
 //game vars
 let startScene;
-let gameScene, playerPosition, scoreLabel, timeLabel, intensityLabel, moveSound, bounceSound;
+let gameScene, playerPosition, scoreLabel, timeLabel, intensityLabel, moveSound, reflectSound, dieSound, music;
 let gameOverScene;
 
 let player = new Player();
@@ -52,6 +57,9 @@ let baseSpawnTimer = 0.75;
 let spawnTimer, spawnBuffer;
 let intensityTimer;
 let intensityTimerCap = 20;
+let invulnTimer, collideTimer;
+let invulnBuffer = 0.08;
+let colliding = false;
 
 //setup function
 function setup()
@@ -76,11 +84,33 @@ function setup()
     player = new Player();
     gameScene.addChild(player);
 
-    //TODO: Load sounds
+    //Load sounds
+    moveSound = new Howl({
+        src: [`media/sfx/move.wav`],
+        volume: 0.60
+    });
+    reflectSound = new Howl({
+        src: [`media/sfx/reflect.wav`],
+        volume: 0.50
+    });
+    dieSound = new Howl({
+        src: [`media/sfx/die.wav`],
+        volume: 0.75
+    });
+    music = new Howl({
+        src: [`media/sfx/music.mp3`],
+        volume: 0.25,
+        loop: true
+    });
 
     //Start update loop
     app.ticker.add(gameLoop);
+
+    //Start looping music
+    music.play();
 }
+
+
 
 //create labels and buttons for all scenes
 function createLabelsAndButtons()
@@ -142,7 +172,7 @@ function createLabelsAndButtons()
         yAxesVisuals[i] = new PIXI.Graphics();
         gameScene.addChild(yAxesVisuals[i]);
         yAxesVisuals[i].position.set(0, yAxes[i]);
-        yAxesVisuals[i].lineStyle(2, 0x777777)
+        yAxesVisuals[i].lineStyle(2, 0xC7E0EB)
             .lineTo(sceneWidth, 0);
     }
 
@@ -152,7 +182,7 @@ function createLabelsAndButtons()
         fontFamily: "Verdana",
         stroke: 0x000000,
         strokeThickness: 2
-    })
+    });
     //Make labels
     scoreLabel = new PIXI.Text();
     scoreLabel.style = textStyle;
@@ -236,6 +266,9 @@ function startGame()
     player.speed = 175;
     player.direction = 1;
     player.scale.x = Math.abs(player.scale.x);
+    player.invuln = false;
+    colliding = false;
+    collideTimer = 0;
 
     graceTimer = 3;
 }
@@ -311,13 +344,27 @@ function gameLoop()
         return;
     }
 
+    //If the invuln timer is active, count it down
+    if (invulnTimer > 0)
+    {
+        invulnTimer -= dt;
+        //If the timer expires, deactivate invuln
+        //We try doing this here to optimize code, so invuln isn't being set to false every frame the timer isn't active for no reason
+        if (invulnTimer <= 0)
+        {
+            player.invuln = false;
+        }
+    }
+
     //Add the delta time to the timer as well as the intensity timer
     refreshTime(dt);
     intensityTimer += dt;
 
     //If the player has reached the furthest thresholds of the left/right sides of the screen, prevent obstacles from spawning as to prevent BS deaths from obstacles spawning
     //on top of the player
-    if (player.x < 150 || player.x > sceneWidth - 150) shouldSpawnObstacles = false;
+    //The speed of the player should also be factored in, as without that, after a point the player can surpass the threshold while having a projectile spawn simultaneously
+    //due to their sheer speed
+    if (player.x < 150 + (intensity * 5) || player.x > sceneWidth - 150 - (intensity * 5)) shouldSpawnObstacles = false;
     else shouldSpawnObstacles = true;
 
     //Count down the obstacle spawn timer
@@ -375,17 +422,25 @@ function gameLoop()
             //Additionally, reset all obstacle's passed status to false
             obstacles[i].passed = false;
         }
+        reflectSound.play();
     }
 
+    colliding = false;
     //Check for player/border collisions and passes
     for (let o of obstacles)
     {
         //Player collision
         if (rectsIntersect(o, player))
         {
-            //If the player collides with an obstacle, end the game
-            player.isAlive = false;
-            end();
+            //If the player collides with an obstacle and they do not have invulnerability, start ticking a collision buffer to give the player some leeway to
+            //react to otherwise unfair scenarios, as well as preventing abrupt game ends
+            colliding = true;
+            // //If the timer has surpassed its threshold, end the game
+            // if (collideTimer >= 0.05)
+            // {
+            //     player.isAlive = false;
+            //     end();
+            // }
         }
         //If the obstacle almost fully goes offscreen, delete them
         if (o.x < 0 - o.width + (o.width / 12) || o.x > sceneWidth + o.width - (o.width / 12))
@@ -394,7 +449,7 @@ function gameLoop()
             gameScene.removeChild(o);
         }
         //if the player has gone past this obstacle, mark this obstacle as passed until the next reflect and give the player score
-        if (!o.passed)
+        if (o.passed == false)
         {
             //Right
             if (o.direction == 1)
@@ -416,6 +471,26 @@ function gameLoop()
             }
         }
     }
+    //If we've collided, increment the timer
+    //We do it here to prevent dt being added multiple times in the case of multiple collisions
+    if (colliding)
+    {
+        collideTimer += dt;
+        if (player.invuln) colliding = false;
+    }
+    //If we still aren't colliding and arent invulnerable (to prevent exploits), set the timer to 0
+    if (colliding == false)
+    {
+        if (player.invuln == false) collideTimer = 0;
+    }
+
+    //If the collide timer has surpassed its threshold, end the game
+    if (collideTimer >= 0.1)
+    {
+        player.isAlive = false;
+        dieSound.play();
+        end();
+    }
 
     //Get rid of dead obstacles
     obstacles = obstacles.filter(o=>o.isAlive);
@@ -432,6 +507,15 @@ function movePlayer(e)
             //If so, change the player position to the next highest axis
             playerPosition--;
             player.y = yAxes[playerPosition];
+            //Activate invulnerability and start the invuln timer if we arent already invuln (to prevent exploits)
+            if (player.invuln == false)
+            {
+                player.invuln = true;
+                invulnTimer = invulnBuffer;
+            }
+            
+            //Play move sound
+            moveSound.play();
         }
         //If already on the highest axis, do nothing
     }
@@ -444,6 +528,11 @@ function movePlayer(e)
             //If so, change the player position to the next lowest axis
             playerPosition++;
             player.y = yAxes[playerPosition];
+            //Activate invulnerability and start the invuln timer
+            player.invuln = true;
+            invulnTimer = invulnBuffer;
+            //Play move sound
+            moveSound.play();
         }
         //If already on the lowest axis, do nothing
     }

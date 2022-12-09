@@ -1,10 +1,66 @@
 body {
-    background-color: #eeeeee;
+    background-color: #777777;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 canvas {
     display: block;
     width: auto;
     margin: 2rem auto;
-    border: 3px dashed #777777
+    border: 3px dashed #666666
+}
+
+#wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: "game game"
+                         "separator separator"
+                         "controls credits";
+}
+
+#game {
+    grid-area: game;
+}
+#separator {
+    grid-area: separator;
+}
+#controls {
+    grid-area: controls;
+}
+#credits {
+    grid-area: credits;
+}
+
+.title {
+    font-size: 3rem;
+    color: white;
+    text-align: center;
+    text-shadow: -2px 2px 0 #000000,
+                 2px 2px 0 #000000,
+                 2px -2px 0 #000000,
+                 -2px -2px 0 #000000;
+}
+.subtitle {
+    font-size: 2rem;
+    color: white;
+    text-shadow: -2px 2px 0 #000000,
+                 2px 2px 0 #000000,
+                 2px -2px 0 #000000,
+                 -2px -2px 0 #000000;
+}
+#namecard {
+    text-align: center;
+}
+
+p, li {
+    color: white;
+    /* text-shadow: -1px 1px 0 #000000,
+                 1px 1px 0 #000000,
+                 1px -1px 0 #000000,
+                 -1px -1px 0 #000000; */
+}
+li {
+    list-style: none;
+    line-height: 1.5rem;
 }

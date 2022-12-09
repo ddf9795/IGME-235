@@ -28,6 +28,8 @@
         project.
     </p>
 
+    <hr>
+
     <h2>Development progress: Prototype</h2>
     <ul>
         <li>The basic gameplay loop has been completed. No sound yet, and on semi-rare occasion you get a BS death, but its functional and decently fun as a little
@@ -39,6 +41,36 @@
             to go for this late in development though. Maybe I can go for a WonderSwan look? I'll think on it.
         </li> 
     </ul>
+
+    <hr>
+
+    <h2>Development progress: Final</h2>
+    <ul>
+        <li>I wasn't thinking of WonderSwan, I was just thinking of the Scale2x filter, lol. Made some new sprites and filtered them through that. Also made some SFX
+            using jsfxr and got a nice royalty free chiptune loop playing in the background.
+        </li>
+        <li>I implemented a prevention measure for later intensities and the possibility of obstacles spawning on top of you. At all points in the game, there's a threshold
+            at the edges of the screen where obstacle spawning is disabled to prevent unfair moments where something spawns directly on top of you with no way to react.
+            As the intensity increases and the player speeds up, this threshold will get incrementally larger to address the fact that the player may get fast enough to surpass
+            the threshold before the spawn check goes through, causing unfair spawns to occur anyways. In extreme edgecases, at ludicrously high intensities the thresholds
+            will overlap and cover the entire playspace, but at that point the player would be already pinging back and forth between existing obstacles with inhuman reaction times, so I don't see a problem
+            with it.
+        </li>
+        <li>I also implemented some measures to prevent legitimate loss-states that just feel unfair, such as trying to dodge an obstacle but being just too late and
+            dying as the very fringes of the sprites connect, or trying to weave between obstacles and hitting one by accident. These may be techincally deserved
+            failures, but they feel terrible. I added both an invulnerability state for when the player moves, giving them 8 frames of invulnerability for a bit of
+            leniency when it comes to situations like weaving, as well as a collision timer. With this timer, the player does not instantly lose upon impact with an
+            obstacle; rather, a 5 frame timer starts, and if 5 frames pass and collision is still occurring, THEN the player dies. This is for scenarios such as
+            avoiding obstacles by the skin of your teeth, since you did technically connect, and you should have lost, but that wouldn't have felt fair, so you get a pass.
+        </li>
+        <li>The addition of these invuln states did open up the door for an exploit, where endlessly spamming up and down would have given the player infinite
+            invulnerability, negating all challenge, so I had to implement some logic to try and counter this. It isn't foolproof and it may not function entirely as imagined,
+            but to me it feels like it works well enough.
+        </li>
+        <li>Finally, I updated the CSS to match how the new sprites look better, as well as adding more explicit explanations of how the game works alongside proper credits.</li>
+    </ul>
+
+    <hr>
 
     <p>About the developer: Dean Flint, Game Design Major, Expected Graduation 2025<br>Skill set: Conceptualization and game design, development in Unity and html/js.
     <br>Interests: Game Design and Development, Interactive Web Design, 2D/3D asset production.</p>

@@ -11,6 +11,9 @@ class Player extends PIXI.Sprite {
         this.direction = 1;
         //Movement speed
         this.speed = 175;
+
+        //Invulnerable state
+        this.invuln = false;
     }
 
     move(dt = 1/60) {
